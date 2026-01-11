@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>증상 기반 질병 예측 사이트</title>
+  <meta name="description" content="증상을 선택하면 가능성 있는 질병 범주를 안내하는 참고용 건강 정보 사이트입니다.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f8; padding:20px; }
+    h1 { text-align:center; }
+    .container { max-width:700px; margin:auto; background:#fff; padding:20px; border-radius:10px; }
+    .symptom { margin:6px 0; }
+    button { margin-top:20px; padding:10px 20px; font-size:16px; }
+    .result { margin-top:20px; padding:15px; background:#eef; border-radius:8px; }
+    .warning { color:red; font-weight:bold; }
+  </style>
+</head>
+<body>
+
+<h1>증상 기반 질병 예측 사이트</h1>
+
+<div class="container">
+  <h3>증상을 선택하세요</h3>
+  <div class="symptom"><input type="checkbox" value="발열"> 발열</div>
+  <div class="symptom"><input type="checkbox" value="기침"> 기침</div>
+  <div class="symptom"><input type="checkbox" value="피로"> 피로</div>
+  <div class="symptom"><input type="checkbox" value="복통"> 복통</div>
+  <button onclick="predict()">결과 확인</button>
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+function predict(){
+  const s=[...document.querySelectorAll("input:checked")].map(v=>v.value);
+  let r=[];
+  if(s.includes("발열")&&s.includes("기침")) r.push("감기 가능성");
+  if(s.includes("복통")) r.push("소화기 문제 가능성");
+  if(s.length===0) r.push("증상을 선택하세요");
+  document.getElementById("result").innerHTML="<ul>"+r.map(x=>`<li>${x}</li>`).join("")+"</ul><p class='warning'>참고용 결과입니다.</p>";
+}
+</script>
+
+</body>
+</html>
